@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project enableR="false" name="sirTerrM" paramIdx="0">
+    <clockParams bot="0.0" delay="0" delta="1.0" method="Discrete" top="2000.0"/>
+    <paramSet name="Param_set_1">
+        <parameter ident="disease_trans" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0</parameter>
+        <parameter ident="disease_death" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0</parameter>
+        <parameter ident="p_switch" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0</parameter>
+        <parameter ident="nat_death" slider="true" sliderHi="0.1" sliderLo="0.0" sliderStep="0.001" unit="">0.005</parameter>
+        <parameter ident="weight_res" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">1/3</parameter>
+        <parameter ident="weight_occ" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">1/3</parameter>
+        <parameter ident="res_grow" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.2</parameter>
+        <parameter ident="comp_ex" slider="true" sliderHi="20.0" sliderLo="0.0" sliderStep="1.0" unit="">1</parameter>
+        <parameter ident="rep_fit_thresh" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.05" unit="">0.15</parameter>
+        <parameter ident="res_def" slider="true" sliderHi="0.5" sliderLo="0.0" sliderStep="0.01" unit="">0.1</parameter>
+        <parameter ident="stress_decay" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.05</parameter>
+        <parameter ident="stress_death" slider="true" sliderHi="10.0" sliderLo="0.0" sliderStep="1.0" unit="">1</parameter>
+        <parameter ident="fit_decay" slider="true" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.1</parameter>
+        <parameter ident="move_cost" slider="true" sliderHi="5.0" sliderLo="1.0" sliderStep="0.2" unit="">2</parameter>
+        <parameter ident="fit_max" slider="false" sliderHi="50.0" sliderLo="0.0" sliderStep="0.5" unit="">1</parameter>
+        <parameter ident="rho_crit" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0.3</parameter>
+        <parameter ident="biomass_conv" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.2</parameter>
+        <parameter ident="cycle_home" slider="false" sliderHi="100.0" sliderLo="0.0" sliderStep="1.0" unit="">10</parameter>
+        <parameter ident="eff_ex" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">5</parameter>
+        <parameter ident="max_res_ex" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">5</parameter>
+        <parameter ident="res_sat" slider="false" sliderHi="500.0" sliderLo="0.0" sliderStep="1.0" unit="">20</parameter>
+        <parameter ident="res_reservoir" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.1</parameter>
+        <parameter ident="stress_scale" slider="false" sliderHi="50.0" sliderLo="0.0" sliderStep="1.0" unit="">0.5</parameter>
+        <parameter ident="prob_f" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0.6</parameter>
+        <parameter ident="p_rep" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0.8</parameter>
+        <parameter ident="parent_fit" slider="false" sliderHi="10.0" sliderLo="-10.0" sliderStep="0.01" unit="">0.65</parameter>
+        <parameter ident="newborn_fit" slider="false" sliderHi="10.0" sliderLo="-10.0" sliderStep="0.01" unit="">0.3</parameter>
+        <parameter ident="max_rad" slider="false" sliderHi="3.0" sliderLo="0.0" sliderStep="1.0" unit="">2</parameter>
+        <parameter ident="mem_fade" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.3</parameter>
+        <parameter ident="dist_dk" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0.3</parameter>
+        <parameter ident="infect_fade" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.01" unit="">0.5</parameter>
+        <parameter ident="latent_inv" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0.5</parameter>
+        <parameter ident="infect_inv" slider="false" sliderHi="1.0" sliderLo="0.0" sliderStep="0.1" unit="">0.2</parameter>
+        <parameter ident="immunelose_inv" slider="false" sliderHi="0.1" sliderLo="0.0" sliderStep="0.001" unit="">0.02</parameter>
+    </paramSet>
+    <capsule mainCapsule="true" name="sirTerrM">
+        <components>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="Nests" nameBase="Nests" x="33.0" y="78.0">ASVALUE(
+  ["C3:3","C3:9","C3:15",
+   "C9:3","C9:9","C9:15",
+   "C15:3","C15:9","C15:15"
+  ]
+);</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="true" unit="" comment="" name="Agent_count" nameBase="Agent_count" x="103.0" y="14.0">NWorld.AData("AGENTCOUNT")</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_0" nameBase="colony_0" x="112.5" y="214.0">nestPop[0]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_1" nameBase="colony_1" x="57.5" y="214.0">nestPop[1]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_2" nameBase="colony_2" x="9.0" y="222.0">nestPop[2]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_3" nameBase="colony_3" x="8.5" y="270.0">nestPop[3]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_4" nameBase="colony_4" x="8.5" y="310.0">nestPop[4]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_5" nameBase="colony_5" x="16.5" y="358.0">nestPop[5]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_6" nameBase="colony_6" x="80.5" y="358.0">nestPop[6]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_7" nameBase="colony_7" x="137.0" y="358.0">nestPop[7]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="colony_8" nameBase="colony_8" x="72.5" y="302.0">nestPop[8]</Term>
+            <Command pre="true" comment="" name="initial_nest_count" nameBase="initial_nest_count" x="11.0" y="138.0">nests = Nests();
+for (var i = 0; i &lt; nests.length; i++) {
+  nestPop[i] = NWorld.CELL(nests[i]).MYAGENT_COUNT();
+}</Command>
+            <SimWorld comment="" name="NWorld" nameBase="NWorld" x="112.0" y="64.0"><agentVector cols="18" count="25" inclDisplay="true" interactive="false" mode="DISCRETE" rows="18" initializer="&quot;Agent&quot;" comment="" name="NWorld_vector" nameBase="NWorld_vector" x="0.0" y="0.0"><input pin="Init_Count" value="init_agent_count"/>
+                    <input pin="CellNests" value="Nests"/>
+                    <agentViewer autoFill="true" caption="NWorld" cellColor="#008000" colSize="30.0" colorPin="agentColor" hiColorVal="7.0" hiSizeVal="5.0" interactive="false" loColorVal="0.0" loSizeVal="-1.0" numCols="8" outPin="" radius="5" randomColor="true" rowSize="30.0" sizePin="fitness" useAgent="true" varySize="true">
+                        <colors color="#000000" value="0.0"/>
+                        <colors color="#ff0000" value="1.0"/>
+                        <colors color="#008000" value="2.0"/>
+                        <colors color="#0000ff" value="3.0"/>
+                        <colors color="#00ffff" value="4.0"/>
+                        <colors color="#ff00ff" value="5.0"/>
+                        <colors color="#ffff00" value="6.0"/>
+                        <colors color="#ffffff" value="7.0"/>
+                        <initString></initString>
+                    </agentViewer>
+                </agentVector>
+                <cellMatrix cols="18" inclDisplay="true" mode="HEX" orient="FLAT" rows="18" initializer="&quot;Cell&quot;" comment="" name="NWorld_matrix" nameBase="NWorld_matrix" x="0.0" y="0.0"><input pin="Nests" value="Nests"/>
+                    <raster autoFill="true" caption="NWorld" colSize="30.0" defCol="1" displayInterval="1" hiVal="7.0" inPin="cellColor" interactive="false" loVal="0.0" numCols="8" outPin="" rowSize="30.0" showValues="false" useCell="true">
+                        <colors color="#000000" value="0.0"/>
+                        <colors color="#ff0000" value="1.0"/>
+                        <colors color="#008000" value="2.0"/>
+                        <colors color="#0000ff" value="3.0"/>
+                        <colors color="#00ffff" value="4.0"/>
+                        <colors color="#ff00ff" value="5.0"/>
+                        <colors color="#ffff00" value="6.0"/>
+                        <colors color="#ffffff" value="7.0"/>
+                        <initString></initString>
+                    </raster>
+                </cellMatrix>
+            </SimWorld>
+            <Barchart contplot="true" plotInterval="1" yaxishi="200.0" yaxislo="0.0" arrayDim="0" arrayInput="false" dataSave="/Users/wgetz/Dropbox/MS_GetzEA_PLOS_DiseaseMove_2019/Data Disease/NestPop.csv" caption="Nest_Population" height="100.0" multipin="false" pinned="false" webInclude="true" width="100.0" comment="" name="Nest_Population" nameBase="Nest_Population" x="189.5" y="317.0"><headless>false</headless>
+                <input color="#ff5500" legend="colony_0" value="colony_0"/>
+                <input color="#d4ff00" legend="colony_1" value="colony_1"/>
+                <input color="#2aff00" legend="colony_2" value="colony_2"/>
+                <input color="#00ff7f" legend="colony_3" value="colony_3"/>
+                <input color="#00d4ff" legend="colony_4" value="colony_4"/>
+                <input color="#002aff" legend="colony_5" value="colony_5"/>
+                <input color="#7f00ff" legend="colony_6" value="colony_6"/>
+                <input color="#ff00d4" legend="colony_7" value="colony_7"/>
+                <input color="#ff0026" legend="colony_8" value="colony_8"/>
+            </Barchart>
+            <Slider size="6.0" unit="" value="350.0" caption="agent count" height="0.0" multipin="false" pinned="false" webInclude="true" width="0.0" comment="" name="init_agent_count" nameBase="init_agent_count" x="5.5" y="20.5"><sliderParams max="1000.0" min="0.0" step="50.0"/>
+            </Slider>
+            <Stats caption="Stress Stats" dataSave="/Users/wgetz/Dropbox/MS_GetzEA_PLOS_DiseaseMove_2019/Data Disease/Stress.csv" doGraph="true" imgSave="" input="NWorld_vector.stress_out" webInclude="false" initializer="&quot;__Bogus__&quot;" comment="" name="Stats_Stress" nameBase="Stats_Stress" x="191.5" y="80.0"><graph compare="false" contplot="true" multi="false" plotInterval="10" tolerance="0.001" xaxis="false" xhi="0.0" xlo="0.0" arrayDim="0" arrayInput="false" caption="Stress Stats" height="100.0" multipin="false" pinned="false" webInclude="true" width="100.0" comment="" name="Stats_Stress_graph" nameBase="" x="0.0" y="0.0"><headless>true</headless>
+                    <input color="#00ff00" hi="4.9E-324" legend="Mean" low="4.9E-324" value="Stats_Stress.Mean"/>
+                    <input color="#0000ff" hi="4.9E-324" legend="Mean+Std" low="4.9E-324" value="Stats_Stress.M_Plus_S"/>
+                    <input color="#ff0000" hi="4.9E-324" legend="Mean-Std" low="4.9E-324" value="Stats_Stress.M_Minus_S"/>
+                </graph>
+            </Stats>
+            <Stats caption="Fitness Stats" dataSave="/Users/wgetz/Dropbox/MS_GetzEA_PLOS_DiseaseMove_2019/Data Disease/Fitness.csv" doGraph="true" imgSave="" input="NWorld_vector.fitness_out" webInclude="false" initializer="&quot;__Bogus__&quot;" comment="" name="Stats_Fitness" nameBase="Stats_Fitness" x="197.5" y="160.0"><graph compare="false" contplot="true" multi="false" plotInterval="10" tolerance="0.001" xaxis="false" xhi="0.0" xlo="0.0" arrayDim="0" arrayInput="false" caption="Fitness Stats" height="100.0" multipin="false" pinned="false" webInclude="true" width="100.0" comment="" name="Stats_Fitness_graph" nameBase="" x="0.0" y="0.0"><headless>true</headless>
+                    <input color="#00ff00" hi="4.9E-324" legend="Mean" low="4.9E-324" value="Stats_Fitness.Mean"/>
+                    <input color="#0000ff" hi="4.9E-324" legend="Mean+Std" low="4.9E-324" value="Stats_Fitness.M_Plus_S"/>
+                    <input color="#ff0000" hi="4.9E-324" legend="Mean-Std" low="4.9E-324" value="Stats_Fitness.M_Minus_S"/>
+                </graph>
+            </Stats>
+            <Tabulator base="0" caption="Disease State" colorList="#00ff00 #804d80 #e64d4d #ff9966 #1a1a1a" dataSave="/Users/wgetz/Dropbox/MS_GetzEA_PLOS_DiseaseMove_2019/Data Disease/DiseaseNo.csv" discreteGroup="Disease_State" legend="S E I V D" graphType="LineGraph" imgSave="" input="NWorld_vector.Disease_Out" size="5" useDiscreteGroup="true" webInclude="false" initializer="&quot;__Bogus__&quot;" comment="" name="Disease_Tab" nameBase="Disease_Tab" x="191.0" y="10.5"><input pin="Input"/>
+                <bargraph contplot="true" plotInterval="10" yaxishi="200.0" yaxislo="0.0" arrayDim="0" arrayInput="false" caption="Disease State" height="100.0" multipin="false" pinned="false" webInclude="true" width="100.0" comment="" name="Disease_Tab_graph" nameBase="" x="0.0" y="0.0"><headless>true</headless>
+                    <input color="#00ff00" legend="S" value="Disease_Tab.Out_00"/>
+                    <input color="#804d80" legend="E" value="Disease_Tab.Out_01"/>
+                    <input color="#e64d4d" legend="I" value="Disease_Tab.Out_02"/>
+                    <input color="#ff9966" legend="V" value="Disease_Tab.Out_03"/>
+                    <input color="#1a1a1a" legend="D" value="Disease_Tab.Out_04"/>
+                </bargraph>
+                <includeList exclude="false" name="S"/>
+                <includeList exclude="false" name="E"/>
+                <includeList exclude="false" name="I"/>
+                <includeList exclude="false" name="V"/>
+                <includeList exclude="false" name="D"/>
+                <linegraph compare="false" contplot="true" multi="false" plotInterval="10" tolerance="0.001" xaxis="false" xhi="0.0" xlo="0.0" arrayDim="0" arrayInput="false" caption="Disease State" height="100.0" multipin="false" pinned="false" webInclude="true" width="100.0" comment="" name="Disease_Tab_graph" nameBase="" x="0.0" y="0.0"><headless>true</headless>
+                    <input color="#00ff00" hi="4.9E-324" legend="S" low="4.9E-324" value="Disease_Tab.Out_00"/>
+                    <input color="#804d80" hi="4.9E-324" legend="E" low="4.9E-324" value="Disease_Tab.Out_01"/>
+                    <input color="#e64d4d" hi="4.9E-324" legend="I" low="4.9E-324" value="Disease_Tab.Out_02"/>
+                    <input color="#ff9966" hi="4.9E-324" legend="V" low="4.9E-324" value="Disease_Tab.Out_03"/>
+                    <input color="#1a1a1a" hi="4.9E-324" legend="D" low="4.9E-324" value="Disease_Tab.Out_04"/>
+                </linegraph>
+            </Tabulator>
+            <Stats caption="Resource Stats" dataSave="/Users/wgetz/Dropbox/MS_GetzEA_PLOS_DiseaseMove_2019/Data Disease/Resource.csv" doGraph="true" imgSave="" input="NWorld_matrix.resource_out" webInclude="false" initializer="&quot;__Bogus__&quot;" comment="" name="Stats_Resource" nameBase="Stats_Resource" x="191.5" y="240.0"><graph compare="false" contplot="true" multi="false" plotInterval="10" tolerance="0.001" xaxis="false" xhi="0.0" xlo="0.0" arrayDim="0" arrayInput="false" caption="Resource Stats" height="100.0" multipin="false" pinned="false" webInclude="true" width="100.0" comment="" name="Stats_Resource_graph" nameBase="" x="0.0" y="0.0"><headless>true</headless>
+                    <input color="#00ff00" hi="4.9E-324" legend="Mean" low="4.9E-324" value="Stats_Resource.Mean"/>
+                    <input color="#0000ff" hi="4.9E-324" legend="Mean+Std" low="4.9E-324" value="Stats_Resource.M_Plus_S"/>
+                    <input color="#ff0000" hi="4.9E-324" legend="Mean-Std" low="4.9E-324" value="Stats_Resource.M_Minus_S"/>
+                </graph>
+            </Stats>
+        </components>
+        <bindings/>
+        <connection source="NWorld_matrix.resource_out" target="Stats_Resource.Input" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="NWorld_vector.Disease_Out" target="Disease_Tab.Input" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="NWorld_vector.fitness_out" target="Stats_Fitness.Input" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="NWorld_vector.stress_out" target="Stats_Stress.Input" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_8" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_7" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_6" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_5" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_4" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_3" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_2" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_1" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="colony_0" target="Nest_Population" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Nests" target="NWorld_matrix.Nests" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Nests" target="NWorld_vector.CellNests" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="init_agent_count" target="NWorld_vector.Init_Count" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Nests" target="initial_nest_count" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="NWorld_vector.AData" target="Agent_count" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <phantomList name="Nests"/>
+        <phantomList name="Agent_count"/>
+        <phantomList name="colony_0"/>
+        <phantomList name="colony_1"/>
+        <phantomList name="colony_2"/>
+        <phantomList name="colony_3"/>
+        <phantomList name="colony_4"/>
+        <phantomList name="colony_5"/>
+        <phantomList name="colony_6"/>
+        <phantomList name="colony_7"/>
+        <phantomList name="colony_8"/>
+    </capsule>
+    <capsule mainCapsule="false" name="Agent">
+        <components>
+            <State dimension="1" history="100" initial="0.15 + 0.1*RANDOM()&#xA;&#xA;" nonNeg="true" typeOf="SEQUENCE" unit="" comment="" name="fitness" nameBase="fitness" x="64.5" y="314.5">var ans;
+switch (current_action) {
+  case stayed:
+    ans = EXP(-fit_decay)*fitness + biomass_conv*MYCELL().X*MAX(0, 1-(fitness/fit_max));
+    break;
+  case moved:
+    ans = EXP(-fit_decay*move_cost)*fitness;
+    break;
+  case reproduced:
+    ans = EXP(-fit_decay*move_cost)*fitness;
+    break;
+};
+ans;</State>
+            <State dimension="1" history="100" initial="0.5 + 0.5*RANDOM()&#xA;" nonNeg="true" typeOf="VARIABLE" unit="" comment="" name="stress" nameBase="stress" x="72.5" y="394.5">zdelta - stress * cz</State>
+            <State dimension="1" history="100" initial="stayed&#xA;" nonNeg="false" typeOf="SEQUENCE" unit="" comment="" name="last_action" nameBase="last_action" x="64.5" y="250.5">current_action</State>
+            <State dimension="1" history="100" initial="FLOOR(RANDOM(CellNests.length))&#xA;" nonNeg="false" typeOf="SEQUENCE" unit="" comment="" name="myNestIdx" nameBase="myNestIdx" x="64.5" y="34.5">var ans = myNestIdx;
+if (p_switch &gt; 0) {
+  if (otherNest &gt;= 0 &amp;&amp;
+      nestPop[otherNest]/nestPop[myNestIdx] &lt; rho_crit &amp;&amp;
+      FLIP(p_switch)) {
+    ans = otherNest;
+    nestPop[myNestIdx]--;
+    nestPop[otherNest]++;
+  };
+}
+ans</State>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="gamma_ID" nameBase="gamma_ID" x="285.0" y="350.0">(nat_death + disease_death) * (1 + stress_death*stress);</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="gamma_D" nameBase="gamma_D" x="358.5" y="486.0">nat_death * (1 + stress_death*stress);</Term>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="gamma_V" nameBase="gamma_V" x="358.5" y="430.0">immunelose_inv</Term>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="gamma_I" nameBase="gamma_I" x="361.0" y="382.0">infect_inv</Term>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="gamma_E" nameBase="gamma_E" x="359.0" y="334.0">latent_inv</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="gamma_S" nameBase="gamma_S" x="359.0" y="286.0">disease_trans * MYCELL().cell_Infect</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="when_to_go_home" nameBase="when_to_go_home" x="344.0" y="62.0">TIME()%cycle_home == 0</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="myNestId" nameBase="myNestId" x="135.0" y="110.0">CellNests[myNestIdx]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="agentColor" nameBase="agentColor" x="355.0" y="238.0">HSL(nestHSLs[myNestIdx]);</Term>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="init_x" nameBase="init_x" x="266.5" y="38.0">COL_OF(myNestId)</Term>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="init_y" nameBase="init_y" x="266.5" y="86.0">ROW_OF(myNestId)</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="true" outpin="false" spy="false" unit="" comment="" name="CellNests" nameBase="CellNests" x="23.0" y="150.0">0.0</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="true" spy="false" unit="" comment="" name="Disease_Out" nameBase="Disease_Out" x="247.5" y="478.0">Disease</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="cz" nameBase="cz" x="78.0" y="446.0">stress_decay</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="zdelta" nameBase="zdelta" x="152.0" y="478.0">var ans;
+switch (current_action) {
+  case stayed:
+  case reproduced:
+    ans = MAX(0, stress_scale * (res_def - MYCELL().X));
+    break;
+  case moved:
+    ans = stress_scale * res_def;
+    break;
+};
+ans;</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="at_home" nameBase="at_home" x="138.0" y="150.0">myNestId == MYCELL().myId</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="what_should_i_do" nameBase="what_should_i_do" x="154.5" y="174.0">var ans;
+if (sex == Female &amp;&amp; at_home &amp;&amp; (Disease == S || Disease == V) &amp;&amp; fitness &gt; rep_fit_thresh &amp;&amp; FLIP(p_rep)) {
+  ans = new Array();
+  ans[0] = reproduced;
+  ans[1] = new Object({
+     init_x: LOCATION().x,
+     init_y: LOCATION().y,
+     fitness: newborn_fit*fitness,
+     myNestIdx: myNestIdx
+  });
+} else ans = move_comp;
+ans;</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="current_action" nameBase="current_action" x="242.5" y="230.0">what_should_i_do[0]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="current_action_data" nameBase="current_action_data" x="220.5" y="134.0">what_should_i_do[1]</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="true" spy="false" unit="" comment="" name="stress_out" nameBase="stress_out" x="253.0" y="398.0">stress</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="true" spy="false" unit="" comment="" name="fitness_out" nameBase="fitness_out" x="243.5" y="318.0">fitness</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="move_comp" nameBase="move_comp" x="80.5" y="158.0">var myCell = MYCELL();
+var myRow = myCell.row;
+var myCol = myCell.col;
+var myBlock = myCell.BLOCK(1, true);
+var myResource = myCell.resource;
+var myOccupancy = myCell.cell_Memory[myNestIdx];
+var act = stayed;
+var dest = null;
+
+// rule 1
+var prob = []
+var tot = 0;
+for (var i in myBlock) {
+  var dist = EXP(-dist_dk * DISTANCE(myRow, myCol, myBlock[i].row, myBlock[i].col));
+  var otherResource = myBlock[i].resource;
+  var rho = (otherResource == 0) ? 0 :
+       MAX(0, 1-(myResource/otherResource));
+  var omega;
+  if (myOccupancy == 0) omega = 0;
+  else {
+    var other_cell_memory = myBlock[i].cell_Memory;
+    var otherMaxOccupancy = 0;
+    for (var j in other_cell_memory) {
+      if (j == myNestIdx) continue;
+      if (other_cell_memory[j] &gt; otherMaxOccupancy) 
+        otherMaxOccupancy = other_cell_memory[j];
+    }
+    omega = MAX(0, 1-otherMaxOccupancy/myOccupancy);
+  }
+  //prob[i] = MAX(0, (1 - (weight_res+weight_occ) * dist + weight_res * rho + weight_occ * omega))
+    prob[i] = MAX(0, (1 - weight_res - weight_occ)* dist + weight_res * rho + weight_occ * omega)
+  tot += prob[i];
+}
+if (tot &gt; 0)
+  for (var i in myBlock) {
+    prob[i] /= tot;
+  }
+dest = SELECT(myBlock, prob);
+if (dest != myCell) act = moved;
+[act, dest];</Term>
+            <Term constant="true" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="sex" nameBase="sex" x="38.0" y="222.0">(FLIP(prob_f)) ? Female : Male</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="otherNest" nameBase="otherNest" x="22.0" y="78.0">found = -1;
+var myCell = MYCELL().myId;
+if (myCell != myNestId) {
+  for (var i in CellNests) {
+    if (CellNests[i] == myCell) {
+      found = i;
+      break;
+    }
+  }
+};
+found;</Term>
+            <Command pre="false" comment="" name="move" nameBase="move" x="445.0" y="122.0">ans = new Object();
+if (when_to_go_home) {
+  ans.x = init_x;
+  ans.y = init_y;
+} else {
+  var action = current_action;
+  if (action == moved) {
+    var dest = current_action_data;
+    ans.x = dest.col;
+    ans.y = dest.row;
+  } else {
+    ans.x = CUR_X();
+    ans.y = CUR_Y();
+  }
+}
+MOVETO(ans.x, ans.y);</Command>
+            <Command pre="false" comment="" name="reproduce" nameBase="reproduce" x="437.0" y="194.0">if (current_action == reproduced) {
+  nestPop[myNestIdx]++;
+  CREATE(current_action_data);
+}</Command>
+            <Command pre="false" comment="" name="die" nameBase="die" x="445.0" y="266.0">if (Disease == D) {
+  Disease == S;
+  nestPop[myNestIdx]--;
+  KILL(myId);
+}</Command>
+            <DiscreteState comment="" name="Disease" nameBase="Disease" x="443.5" y="411.0"><dsGroup name="Disease_State">
+                    <elements>S</elements>
+                    <elements>E</elements>
+                    <elements>I</elements>
+                    <elements>V</elements>
+                    <elements>D</elements>
+                </dsGroup>
+                <initial>(myId &lt; 1) ? E : S</initial>
+                <stateNext state="S">
+                    <next>SELECT([E,D,S], 
+       [gamma_S*(1-EXP(-gamma_S - gamma_D))/(gamma_S + gamma_D), 
+        gamma_D*(1-EXP(-gamma_S - gamma_D))/(gamma_S + gamma_D), 
+        EXP(-gamma_S - gamma_D)]);</next>
+                </stateNext>
+                <stateNext state="E">
+                    <next>SELECT([I,D,E],
+       [gamma_E*(1-EXP(-gamma_E - gamma_D))/(gamma_E+gamma_D), 
+        gamma_D*(1-EXP(-gamma_E - gamma_D))/(gamma_E+gamma_D), 
+        EXP(-gamma_E - gamma_D)]);</next>
+                </stateNext>
+                <stateNext state="I">
+                    <next>SELECT([V,D,I], 
+       [gamma_I*(1-EXP(-gamma_I - gamma_ID))/(gamma_I+gamma_ID), 
+        gamma_ID*(1-EXP(-gamma_I - gamma_ID))/(gamma_I+gamma_ID), 
+        EXP(-gamma_I - gamma_ID)]);</next>
+                </stateNext>
+                <stateNext state="V">
+                    <next>SELECT([S,D,V],
+       [gamma_V*(1-EXP(-gamma_V - gamma_D))/(gamma_V+gamma_D), 
+        gamma_D*(1-EXP(-gamma_V - gamma_D))/(gamma_V+gamma_D), 
+        EXP(-gamma_V - gamma_D)]);</next>
+                </stateNext>
+                <stateNext state="D">
+                    <next>D</next>
+                </stateNext>
+            </DiscreteState>
+        </components>
+        <inPin>CellNests</inPin>
+        <outPin>Disease_Out</outPin>
+        <outPin>stress_out</outPin>
+        <outPin>fitness_out</outPin>
+        <bindings/>
+        <connection source="current_action" target="fitness" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="fitness" target="fitness" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="136.0" centerY="298.0">
+                    <selected>true</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="gamma_V" target="Disease" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="gamma_D" target="Disease" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="gamma_I" target="Disease" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="gamma_ID" target="Disease" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="gamma_E" target="Disease" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="gamma_S" target="Disease" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Disease" target="die" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="current_action" target="reproduce" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="current_action_data" target="reproduce" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="when_to_go_home" target="move" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="init_x" target="move" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="init_y" target="move" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="current_action" target="move" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="current_action_data" target="move" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestId" target="otherNest" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="CellNests" target="otherNest" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestIdx" target="move_comp" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="fitness" target="fitness_out" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="stress" target="stress_out" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="what_should_i_do" target="current_action_data" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="what_should_i_do" target="current_action" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="sex" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="at_home" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Disease" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="48.0" centerY="352.0">
+                    <selected>false</selected>
+                </bead>
+                <bead centerX="48.0" centerY="264.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="init_x" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="init_y" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="fitness" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestIdx" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="move_comp" target="what_should_i_do" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestId" target="at_home" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="current_action" target="zdelta" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Disease" target="Disease_Out" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestId" target="init_y" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestId" target="init_x" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="CellNests" target="myNestId" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="stress" target="gamma_D" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="stress" target="gamma_ID" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myNestIdx" target="myNestIdx" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="133.0" centerY="18.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="otherNest" target="myNestIdx" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="CellNests" target="myNestIdx" slocus="NEUTRAL" tlocus="STOCK" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="current_action" target="last_action" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="152.0" centerY="232.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="zdelta" target="stress" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="stress" target="stress" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="136.0" centerY="384.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="cz" target="stress" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <phantomList name="fitness"/>
+        <phantomList name="gamma_ID"/>
+        <phantomList name="gamma_D"/>
+        <phantomList name="gamma_V"/>
+        <phantomList name="gamma_S"/>
+        <phantomList name="when_to_go_home"/>
+        <phantomList name="myNestId"/>
+        <phantomList name="agentColor"/>
+        <phantomList name="init_x"/>
+        <phantomList name="init_y"/>
+        <phantomList name="gamma_I"/>
+        <phantomList name="gamma_E"/>
+        <phantomList name="CellNests"/>
+        <phantomList name="Disease_Out"/>
+        <phantomList name="stress"/>
+        <phantomList name="cz"/>
+        <phantomList name="zdelta"/>
+        <phantomList name="at_home"/>
+        <phantomList name="what_should_i_do"/>
+        <phantomList name="current_action"/>
+        <phantomList name="last_action"/>
+        <phantomList name="current_action_data"/>
+        <phantomList name="stress_out"/>
+        <phantomList name="fitness_out"/>
+        <phantomList name="move_comp"/>
+        <phantomList name="sex"/>
+        <phantomList name="myNestIdx"/>
+        <phantomList name="otherNest"/>
+    </capsule>
+    <capsule mainCapsule="false" name="Cell">
+        <components>
+            <State dimension="1" history="100" initial="var ans = [];&#xA;for (var i = 0; i &lt; Nests.length; i++) ans.push(0);&#xA;ans;" nonNeg="false" typeOf="SEQUENCE" unit="" comment="" name="cell_Memory" nameBase="cell_Memory" x="104.5" y="122.5">var agents = MYAGENTS();
+var ans = [];
+for (var i in cell_Memory) {
+  ans[i] = cell_Memory[i] * EXP(-mem_fade);
+}
+for (var i in agents) {
+  ans[agents[i].myNestIdx]++;
+}
+ans;</State>
+            <State dimension="1" history="100" initial="2+RANDOM(1)&#xA;" nonNeg="false" typeOf="SEQUENCE" unit="" comment="" name="resource" nameBase="resource" x="112.5" y="202.5">cstar + res_grow * (1 - cstar/res_sat)*(cstar + res_reservoir)</State>
+            <State dimension="1" history="100" initial="myInfectedSize" nonNeg="false" typeOf="SEQUENCE" unit="" comment="" name="cell_Infect" nameBase="cell_Infect" x="104.5" y="58.5">myInfectedSize + EXP(-infect_fade)*cell_Infect;</State>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="cellType" nameBase="cellType" x="66.0" y="222.0">(Nests.indexOf(myId) &gt;= 0) ? Nest : Normal</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="nestIdx" nameBase="nestIdx" x="13.0" y="222.0">(cellType == Nest) ? Nests.indexOf(myId) : -1;</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="Y" nameBase="Y" x="166.0" y="270.0">var agts = MYAGENTS();
+agts = _.filter(agts, function(x){return x.last_action == stayed;});
+var count = agts.length;
+count;</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="cstar" nameBase="cstar" x="202.5" y="254.0">resource - Y*X</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="cellColor" nameBase="cellColor" x="225.0" y="158.0">var ans;
+if (cellType == Nest) {
+  ans = (nestPop[nestIdx] == 0) ? RGB(50,50,50) : HSL(nestHSLs[nestIdx]);
+}
+else {
+  var same = true;
+  var bestIdx = 0;
+  var bestVal = cell_Memory[0];
+  for (var i = 1; i &lt; cell_Memory.length; i++) {
+    if (cell_Memory[i] != cell_Memory[0]) same = false;
+    if (cell_Memory[i] &gt; bestVal) {
+      bestVal = cell_Memory[i]
+      bestIdx = i;
+    }
+  }
+  if (same) {
+    var l = 50-(resource/2);
+    ans = HSL(127, 85, l);
+  } else {
+    var l = Math.min(75, 100-resource);
+    ans = HSL(nestHSLs[bestIdx][0], nestHSLs[bestIdx][1]/2, l);
+  }
+}
+ans;</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="myInfectedSize" nameBase="myInfectedSize" x="15.5" y="30.0">COUNT(function(agt){return agt.Disease == I || agt.Disease == E;}, MYAGENTS());</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="true" outpin="false" spy="false" unit="" comment="" name="Nests" nameBase="Nests" x="49.0" y="150.0">0.0</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="agentsFromNest" nameBase="agentsFromNest" x="13.0" y="78.0">var ans = []
+for (var i = 0; i &lt; Nests.length; i++) ans.push(0);
+var agents = MYAGENTS();
+for (var idx in agents) {
+  agent = agents[idx];
+  var nestIdx = agent.myNestIdx;
+  ans[nestIdx]++;
+}
+ans;</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="true" spy="false" unit="" comment="" name="resource_out" nameBase="resource_out" x="214.0" y="206.0">resource</Term>
+            <Term constant="false" external="false" graphFunc="false" inpin="false" outpin="false" spy="false" unit="" comment="" name="X" nameBase="X" x="118.0" y="246.0">var ans = 0.0;
+if (Y &gt; 0) {
+  var v0 = resource/Y;
+  var v1 = (max_res_ex * resource)/(eff_ex * (1 + comp_ex * (Y-1)) + resource);
+  ans = MIN(v0, v1);
+}
+ans;</Term>
+        </components>
+        <inPin>Nests</inPin>
+        <outPin>resource_out</outPin>
+        <bindings/>
+        <connection source="Y" target="X" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="resource" target="X" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="resource" target="resource_out" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Nests" target="agentsFromNest" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="cellType" target="cellColor" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="114.0" centerY="186.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="cell_Memory" target="cellColor" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="resource" target="cellColor" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="resource" target="cstar" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Y" target="cstar" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="X" target="cstar" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="cellType" target="nestIdx" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Nests" target="nestIdx" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="Nests" target="cellType" slocus="NEUTRAL" tlocus="NEUTRAL" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="myInfectedSize" target="cell_Infect" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="cell_Infect" target="cell_Infect" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="174.0" centerY="55.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="myInfectedSize" target="cell_Infect" slocus="NEUTRAL" tlocus="STOCK" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="cstar" target="resource" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc"/>
+        </connection>
+        <connection source="cell_Memory" target="cell_Memory" slocus="NEUTRAL" tlocus="FLOW" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="175.0" centerY="125.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <connection source="Nests" target="cell_Memory" slocus="NEUTRAL" tlocus="STOCK" conArrow="true" psource="" ptarget="">
+            <mline color="#ffdcdc">
+                <bead centerX="114.0" centerY="114.0">
+                    <selected>false</selected>
+                </bead>
+            </mline>
+        </connection>
+        <phantomList name="cell_Memory"/>
+        <phantomList name="resource"/>
+        <phantomList name="cellType"/>
+        <phantomList name="nestIdx"/>
+        <phantomList name="Y"/>
+        <phantomList name="cstar"/>
+        <phantomList name="cellColor"/>
+        <phantomList name="myInfectedSize"/>
+        <phantomList name="cell_Infect"/>
+        <phantomList name="Nests"/>
+        <phantomList name="agentsFromNest"/>
+        <phantomList name="resource_out"/>
+        <phantomList name="X"/>
+    </capsule>
+    <analytics/>
+    <globals/>
+    <globalFuncs>
+        <global ident="OnLoad" type="Constant" unit=""></global>
+        <global ident="Init" type="Constant" unit=""></global>
+        <global ident="Final" type="Constant" unit=""></global>
+    </globalFuncs>
+    <imageFile></imageFile>
+    <layoutData compHeight="454.0" compWidth="714.0" compX="0.0" compY="0.0" moniker="main.World_display">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="u">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="bout">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="malePct">
+        <properties>
+            <property name="col">4</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="r">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="q">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="mu">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="g">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="h">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="s">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="phi">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="kappa">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="k">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="psi">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="main:agent_count">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="298.0" compWidth="444.0" compX="1.0" compY="0.0" moniker="main.NWorld_display">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="712.0" compY="0.0" moniker="main.Disease_State">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="0.0" compY="57.0" moniker="main.Histogram_0">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="0.0" compY="516.0" moniker="main.agent_Stress_histo">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="70.0" compWidth="120.0" compX="155.0" compY="285.0" moniker="main.Agent_count_spy">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="498.0" compY="443.0" moniker="main.Stress_Stats">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="0.0" compY="442.0" moniker="main.Fitness_Stats">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="456.0" compX="805.0" compY="0.0" moniker="main.Disease_Tab_graph">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="431.0" compX="411.0" compY="350.0" moniker="main.Stats_Fitness_graph">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="432.0" compX="826.0" compY="353.0" moniker="main.Stats_Stress_graph">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="693.0" compY="49.0" moniker="main.Disease_Tabulator_graph">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="520.0" compX="0.0" compY="799.0" moniker="main.Tabulator_0_graph">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="biomass_conv">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="max_res_ex">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="eff_ex">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="comp_ex">
+        <properties>
+            <property name="col">4</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="main:init_agent_count">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="stress_rate">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="beta">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="res_grow">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="res_reservoir">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">3</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="res_sat">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">3</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="fit_decay">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="disease_trans">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="cycle_home">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="p_rep">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="res_def">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="nat_death">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="immunelose_inv">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="dist_dk">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="mem_fade">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="disease_death">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="infect_inv">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="infect_fade">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="latent_inv">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="rep_fit_thresh">
+        <properties>
+            <property name="col">4</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="stress_scale">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">3</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="prob_f">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="352.0" compX="467.0" compY="0.0" moniker="main.Nest_Population">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="rho_crit">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">0</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="p_switch">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="weight_occ">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="weight_res">
+        <properties>
+            <property name="col">0</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="370.0" compWidth="430.0" compX="0.0" compY="349.0" moniker="main.Stats_Resource_graph">
+        <properties/>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="max_rad">
+        <properties>
+            <property name="col">3</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="stress_decay">
+        <properties>
+            <property name="col">1</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="stress_death">
+        <properties>
+            <property name="col">2</property>
+            <property name="row">2</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="fit_max">
+        <properties>
+            <property name="col">4</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <layoutData compHeight="-1.0" compWidth="-1.0" compX="-1.0" compY="-1.0" moniker="move_cost">
+        <properties>
+            <property name="col">4</property>
+            <property name="row">1</property>
+        </properties>
+    </layoutData>
+    <rtParams height="1177.0" inputColumnSize="3" splitLocation="0.22940563086548488" width="1920.0"/>
+    <docState>HTML</docState>
+    <prelude>var nestPop = [0,0,0,0,0,0,0,0,0]
+
+var nestHSLs = [
+  [30,100,50],
+  [70,100,50],
+  [110,100,50],
+
+  [150,100,50],
+  [190,100,50],
+  [230,100,50],
+
+  [270,100,50],
+  [310,100,50],
+  [350,100,50],
+];
+
+
+</prelude>
+    <enums>
+        <enum name="Disease_State">
+            <elements>S</elements>
+            <elements>E</elements>
+            <elements>I</elements>
+            <elements>V</elements>
+            <elements>D</elements>
+        </enum>
+        <enum name="Action">
+            <elements>stayed</elements>
+            <elements>moved</elements>
+            <elements>reproduced</elements>
+        </enum>
+        <enum name="Sex">
+            <elements>Male</elements>
+            <elements>Female</elements>
+        </enum>
+        <enum name="Celltype">
+            <elements>Nest</elements>
+            <elements>Normal</elements>
+        </enum>
+    </enums>
+</project>
